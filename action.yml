@@ -1,5 +1,8 @@
 name: 'Get terraform version'
 description: 'Get terraform version from .terraform-version file'
+branding:
+  icon: link
+  color: purple
 inputs:
   path:
     description: 'where to run terraform command'
