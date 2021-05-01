@@ -35,3 +35,33 @@ setup() {
     assert_success
     assert_output '0.11.8'
 }
+
+@test "regex pattern version like 'latest:0.11.*' works" {
+    tmpdir=$(mktemp -d)
+    echo '0.11.*' > $tmpdir/.terraform-version
+
+    run main.sh $tmpdir
+
+    assert_success
+    assert_output '0.11.15'
+}
+
+@test "regex pattern version like '0.11.*' works (not documented format)" {
+    tmpdir=$(mktemp -d)
+    echo '0.11.*' > $tmpdir/.terraform-version
+
+    run main.sh $tmpdir
+
+    assert_success
+    assert_output '0.11.15'
+}
+
+@test "'latest' version works (but verifications is hard)" {
+    tmpdir=$(mktemp -d)
+    echo 'latest' > $tmpdir/.terraform-version
+
+    run main.sh $tmpdir
+
+    assert_success
+    # assert_output '0.15.1' # we cannot verify latest value stably
+}
