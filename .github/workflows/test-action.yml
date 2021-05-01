@@ -3,7 +3,7 @@ name: test action
 'on': [push]
 
 jobs:
-  test_action:
+  success_case:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -11,3 +11,9 @@ jobs:
     - id: get-terraform-version-action
       uses: bigwheel/get-terraform-version-action@main
     - run: test '0.11.15' = "${{ steps.get-terraform-version-action.outputs.terraform-version }}"
+  failue_case:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - id: get-terraform-version-action
+      uses: bigwheel/get-terraform-version-action@main
