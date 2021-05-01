@@ -1,4 +1,6 @@
-on: [push]
+name: test script
+
+'on': [push]
 
 jobs:
   test_script:
