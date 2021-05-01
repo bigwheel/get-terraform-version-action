@@ -13,6 +13,10 @@ PATH="$tfenv_path/bin:$PATH"
 
 # by https://github.com/tfutils/tfenv/blob/43e0aad9/libexec/tfenv-install#L66-L75
 cd $target_path
+if [[ "$(tfenv version-file)" == "$tfenv_path/version" ]]; then
+    echo '.terraform-version file not found.' >&2
+    exit 1
+fi
 resolved="$(tfenv resolve-version)"
 regex="${resolved##*\:}"
 version="$(tfenv list-remote | grep -e "${regex}" | head -n 1)"

@@ -6,10 +6,32 @@ setup() {
     PATH="$DIR/../src:$PATH"
 }
 
+@test "there is no .terraform-version file" {
+    tmpdir=$(mktemp -d)
 
-@test "simple" {
+    run main.sh $tmpdir
+
+    assert_failure
+    assert_output '.terraform-version file not found.'
+}
+
+@test ".terraform-version file in the directory" {
     tmpdir=$(mktemp -d)
     echo '0.11.7' > $tmpdir/.terraform-version
+
     run main.sh $tmpdir
+
+    assert_success
     assert_output '0.11.7'
+}
+
+@test ".terraform-version file in parent directory" {
+    tmpdir=$(mktemp -d)
+    mkdir $tmpdir/child
+    echo '0.11.8' > $tmpdir/.terraform-version
+
+    run main.sh $tmpdir/child
+
+    assert_success
+    assert_output '0.11.8'
 }
