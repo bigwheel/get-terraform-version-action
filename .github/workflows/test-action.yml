@@ -7,8 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - id: foo
+    - id: get-terraform-version-action
       uses: bigwheel/get-terraform-version-action@v1
-      with:
-        who-to-greet: 'Mona the Octocat'
-    - run: echo random-number ${{ steps.foo.outputs.random-number }}
+    - run: echo ${{ steps.get-terraform-version-action.outputs.terraform-version }}

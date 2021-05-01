@@ -1,21 +1,19 @@
 name: 'Get terraform version'
 description: 'Get terraform version from .terraform-version file'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
+  path:
+    description: 'where to run terraform command'
+    required: false
+    default: '.'
 outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+  terraform-version:
+    description: "detected terraform version"
+    value: ${{ steps.get-terraform-version.outputs.terraform-version }}
 runs:
-  using: "composite"
+  using: composite
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
-    - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
-      shell: bash
-    - run: ${{ github.action_path }}/script.sh
+    - id: get-terraform-version
+      run: |
+        result=$(${{ github.action_path }}/script.sh ${{ inputs.path }})
+        echo "::set-output name=terraform-version::$(echo $result)"
       shell: bash
