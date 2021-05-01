@@ -1,0 +1,10 @@
+on: [push]
+
+jobs:
+  test_script:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - run: test/bats/bin/bats test/test.bats
