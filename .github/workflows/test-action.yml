@@ -3,6 +3,17 @@ name: test action
 'on': [push]
 
 jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo '0.11.*' > .terraform-version
+    - id: get-terraform-version-action
+      uses: bigwheel/get-terraform-version-action@main
+    - uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ steps.get-terraform-version-action.outputs.terraform-version }}
+    - run: terraform version | grep 0.11.15
+
   success_case:
     runs-on: ubuntu-latest
     steps:
@@ -10,6 +21,7 @@ jobs:
     - id: get-terraform-version-action
       uses: bigwheel/get-terraform-version-action@main
     - run: test "${{ steps.get-terraform-version-action.outputs.terraform-version }}" = '0.11.15'
+
   failue_case:
     runs-on: ubuntu-latest
     steps:
