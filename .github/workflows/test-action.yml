@@ -6,7 +6,6 @@ jobs:
   success_case:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
     - run: echo '0.11.*' > .terraform-version
     - id: get-terraform-version-action
       uses: bigwheel/get-terraform-version-action@main
@@ -14,7 +13,6 @@ jobs:
   failue_case:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
     - id: get-terraform-version-action
       uses: bigwheel/get-terraform-version-action@main
       continue-on-error: true
