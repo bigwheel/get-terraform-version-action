@@ -8,7 +8,7 @@ Get terraform version from .terraform-version ([tfenv](https://github.com/tfutil
 steps:
 - run: echo '0.11.*' > .terraform-version
 - id: gtva
-  uses: bigwheel/get-terraform-version-action@main
+  uses: bigwheel/get-terraform-version-action@v1.1.0
 - uses: hashicorp/setup-terraform@v1
   with:
     terraform_version: ${{ steps.gtva.outputs.terraform-version }}
