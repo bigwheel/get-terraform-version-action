@@ -18,5 +18,5 @@ runs:
     - id: get-terraform-version
       run: |
         result=$(${{ github.action_path }}/src/main.sh ${{ inputs.path }})
-        echo "::set-output name=terraform-version::$(echo $result)"
+        echo "terraform-version=$result" >> $GITHUB_OUTPUT
       shell: bash
