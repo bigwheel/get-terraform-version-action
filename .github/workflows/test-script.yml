@@ -1,6 +1,6 @@
 name: test script
 
-'on': [push]
+'on': [push, workflow_dispatch]
 
 jobs:
   test_script:
