@@ -17,6 +17,7 @@ runs:
   steps:
     - id: get-terraform-version
       run: |
-        result=$(${{ github.action_path }}/src/main.sh ${{ inputs.path }})
+        # GITHUB_ACTION_PATH reason https://github.com/bigwheel/get-terraform-version-action/issues/2
+        result=$(${GITHUB_ACTION_PATH}/src/main.sh ${{ inputs.path }})
         echo "terraform-version=$result" >> $GITHUB_OUTPUT
       shell: bash
