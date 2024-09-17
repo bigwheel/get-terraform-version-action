@@ -6,8 +6,8 @@ jobs:
   example:
     runs-on: ubuntu-latest
     steps:
-    - run: echo '0.11.*' > .terraform-version
     - uses: actions/checkout@v2
+    - run: echo '0.11.*' > .terraform-version
     - id: get-terraform-version-action
       uses: ./
     - uses: hashicorp/setup-terraform@v1
@@ -18,8 +18,8 @@ jobs:
   success_case:
     runs-on: ubuntu-latest
     steps:
-    - run: echo '0.11.*' > .terraform-version
     - uses: actions/checkout@v2
+    - run: echo '0.11.*' > .terraform-version
     - id: get-terraform-version-action
       uses: ./
     - run: test "${{ steps.get-terraform-version-action.outputs.terraform-version }}" = '0.11.15'
