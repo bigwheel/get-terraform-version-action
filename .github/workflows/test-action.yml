@@ -6,9 +6,10 @@ jobs:
   example:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - run: echo '0.11.*' > .terraform-version
     - id: get-terraform-version-action
-      uses: bigwheel/get-terraform-version-action@main
+      uses: ./
     - uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: ${{ steps.get-terraform-version-action.outputs.terraform-version }}
@@ -17,15 +18,17 @@ jobs:
   success_case:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - run: echo '0.11.*' > .terraform-version
     - id: get-terraform-version-action
-      uses: bigwheel/get-terraform-version-action@main
+      uses: ./
     - run: test "${{ steps.get-terraform-version-action.outputs.terraform-version }}" = '0.11.15'
 
   failue_case:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - id: get-terraform-version-action
-      uses: bigwheel/get-terraform-version-action@main
+      uses: ./
       continue-on-error: true
     - run: test "${{ steps.get-terraform-version-action.outcome}}" = 'failure'
